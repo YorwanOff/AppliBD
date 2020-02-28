@@ -1,4 +1,4 @@
-Appli/vendor/
-Appli/src/conf/conf.ini
+Appli/src/vendor/
+Appli/src/conf/
 *.lock
 *.json
