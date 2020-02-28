@@ -1,12 +1,17 @@
 <?php
 
+require __DIR__ . 'Appli/vendor/autoload.php';
 
-use \games\model\Game;
-use \games\model\Company;
-use \games\model\Platform;
+use applidb\models\Game;
+use applidb\models\Company;
+use applidb\models\Platform;
+
+use Illuminate\Database\Capsule\Manager as DB;
+
+$c = new Slim\Container(['settings' => ['displayErrorDetails' => true]]);
+$app = new Slim\App($c);
 
 
-require '../vendor/autoload.php';
 
 \games\AppConf::AddDbConf('../config/games.db.conf.ini');
 
