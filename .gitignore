@@ -1,4 +1,4 @@
 src/vendor/
-conf.ini
+src/conf/conf.ini
 *.lock
 *.json
