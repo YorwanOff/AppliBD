@@ -1,7 +1,7 @@
 <?php
 
 
-class Jeu
+class Game
 {
 
 }
