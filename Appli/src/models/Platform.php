@@ -1,7 +1,7 @@
 <?php
 
 namespace applibd\models;
-class Platform
+class Platform  extends \Illuminate\Database\Eloquent\Model
 {
 
 

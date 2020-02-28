@@ -1,7 +1,7 @@
 <?php
 
 namespace applibd\models;
-class Company
+class Company  extends \Illuminate\Database\Eloquent\Model
 {
 
 protected $table = 'company';
