@@ -2,3 +2,4 @@ Appli/vendor/
 Appli/src/conf/
 *.lock
 *.json
+.idea
