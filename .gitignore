@@ -3,3 +3,4 @@ Appli/src/conf/
 *.lock
 *.json
 .idea
+Appli/.idea
