@@ -1,0 +1,16 @@
+1) Photo(id, file, date, taille_octet, #idannonce)
+Annonce(id, titre, date, texte)
+Categorie(id, nom, descr)
+aPourCategorie(#idannonce, #idcateg)
+
+2) 
+
+3)
+1. $a = Annonce::where('id','=',22)->first(); $a->hasMany('Photo','idannonce')->get();
+2.
+3. 
+4.
+
+4)
+
+5)
