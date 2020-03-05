@@ -9,7 +9,7 @@ aPourCategorie(#idannonce, #idcateg)
 1. $a = Annonce::where('id','=',22)->first(); $a->hasMany('Photo','idannonce')->get();
 2. $p = Photo::where('idannonce','=',22)->where('taille_octet','>',100000)->get();
 3. 
-4.
+4. $photo = Photo::select('idannonce')->where('idannonce','!=',0)->where('taille_octet,'>',100000)->get(); $ann = Annonce::where('id','=',$photo);
 
 4) $add = Annonce::where('idannonce','=',22)->first();
    $ph = new Photo();
