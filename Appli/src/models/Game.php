@@ -43,6 +43,10 @@ class Game  extends \Illuminate\Database\Eloquent\Model
         return $res;
     }
 
+    function original_game_ratings() {
+        return $this->belongsToMany('GameRating','game2rating','game_id','game_rating_id');
+    }
+
     function gameName($name)
     {
         $game = Game::where('name', 'like', '$name');
