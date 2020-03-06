@@ -5,8 +5,8 @@ namespace applibd\models;
 
 use Illuminate\Database\Query\Builder;
 
-class Annonce extends \Illuminate\Database\Eloquent\Model
+class Character extends \Illuminate\Database\Eloquent\Model
 {
-    protected $table = 'annonce';
+    protected $table = 'character';
     protected $primaryKey = 'id';
 }

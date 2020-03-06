@@ -30,3 +30,8 @@ class Photo extends Illuminate\Database\Eloquent\Model{
    $c1->push($add);
    $c2 = Categorie::where('id','=',73)->first();
    $c2->push($add);
+
+   4)$photo = new Photos();
+    $photo->file=$file
+    $photo->$date
+    $photo->taille_octet=filessize($file)
