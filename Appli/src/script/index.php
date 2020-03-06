@@ -14,10 +14,10 @@ $app = new Slim\App($c);
 
 \applibd\bd\Eloquent::start('../conf/conf.ini');
 
-$app->get('/q1', q1())->setName('q1');
-$app->get('/q2', q2())->setName('q2');
-$app->get('/q3', q3())->setName('q3');
-$app->get('/q4', q4())->setName('q4');
+//$app->get('/q1', q1)->setName('q1');
+//$app->get('/q2', q2)->setName('q2');
+//$app->get('/q3', q3)->setName('q3');
+//$app->get('/q4', q4)->setName('q4');
 
 /*
  * Q1 : liste des jeux dont le nom contient mario
@@ -29,8 +29,6 @@ function q1() {
         echo $game->name . ' : ' . $game->alias . "\n";
     }
 }
-
-echo "Jeux dont le titre contient Mario : " . count($liste). "\n";
 
 /*
  * Q2 : Liste des compagnies installées au Japon
@@ -68,4 +66,5 @@ function q4() {
 /*
  * Q5 : Lister les jeux en paginant
  */
+
 
