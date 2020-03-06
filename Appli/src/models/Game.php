@@ -13,6 +13,10 @@ class Game  extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'game';
     protected $primaryKey = 'id';
+
+    function character(){
+        return $this->belongsToMany('Character', 'game2character', 'game_id', 'character_id')->get();
+    }
     /*
        * Q1 : liste des jeux dont le nom contient mario
        */
@@ -37,5 +41,11 @@ class Game  extends \Illuminate\Database\Eloquent\Model
             $res .= $game->name . ' : ' . $game->alias . "<br/>";
         }
         return $res;
+    }
+
+    function gameName($name)
+    {
+        $game = Game::where('name', 'like', '$name');
+        $pers = $this->character()->where('name', 'LIKE', $name)->get();
     }
 }
