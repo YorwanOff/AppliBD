@@ -71,3 +71,6 @@ function q4() {
  * Q5 : Lister les jeux en paginant
  */
 
+
+$c = new \applibd\models\Character();
+$c->findById(12342);
