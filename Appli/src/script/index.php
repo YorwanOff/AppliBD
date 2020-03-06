@@ -23,6 +23,7 @@ $game = new Game();
 $game->q1('%mario%');
 $game->q4(442,21173);
 echo $game->rating('Mario%');
+echo $game->gameName('Mario%');
 
 $compagnie = new Company();
 $compagnie->q2('Japon');

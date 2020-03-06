@@ -49,8 +49,11 @@ class Game  extends \Illuminate\Database\Eloquent\Model
 
     function gameName($name)
     {
-        $game = Game::where('name', 'like', '$name');
-        $pers = $this->character()->where('name', 'LIKE', $name)->get();
+        foreach(Game::where('name', 'like', '$name')->get() as $game) {
+            foreach($game->character as $c) {
+                echo '---' . $c->name . '\n';
+            }
+        }
     }
 
     function rating($name) {
