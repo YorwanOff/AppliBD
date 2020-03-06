@@ -59,7 +59,7 @@ class Game  extends \Illuminate\Database\Eloquent\Model
     function rating($name) {
         foreach(Game::where('name','like',$name)->get() as $game) {
             echo '----' .$game->name . ' : ' . $game->id . "\n";
-            foreach($game->original_game_ratings as $rating) {
+            foreach($this->original_game_ratings as $rating) {
                 echo '##### ' . $rating->name . ' ('. $rating->rating_board->name . '\n';
             }
         }

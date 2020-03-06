@@ -38,3 +38,9 @@ $platform->q3(10000000);
 
 $c = new \applibd\models\Character();
 $c->findById(12342);
+
+foreach(Game::where('name', 'like', 'Mario%')->get() as $game) {
+    foreach ($game->character as $c) {
+        echo '---' . $c->name . '\n';
+    }
+}
