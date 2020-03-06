@@ -22,8 +22,6 @@ $app = new Slim\App($c);
 $game = new Game();
 $game->q1('%mario%');
 $game->q4(442,21173);
-echo $game->rating('Mario%');
-echo $game->gameName('Mario%');
 
 $compagnie = new Company();
 $compagnie->q2('Japon');
@@ -39,8 +37,17 @@ $platform->q3(10000000);
 $c = new \applibd\models\Character();
 $c->findById(12342);
 
+/*q2*/
 foreach(Game::where('name', 'like', 'Mario%')->get() as $game) {
     foreach ($game->character as $c) {
         echo '---' . $c->name . '\n';
+    }
+}
+
+/*q4*/
+foreach(Game::where('name','like','Mario%')->get() as $game) {
+    echo '----' . $game->name . ' : ' . $game->id . "\n";
+    foreach ($game->original_game_ratings as $rating) {
+        echo '##### ' . $rating->name . ' (' . $rating->rating_board->name . '\n';
     }
 }

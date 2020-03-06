@@ -47,21 +47,4 @@ class Game  extends \Illuminate\Database\Eloquent\Model
         return $this->belongsToMany('GameRating','game2rating','game_id','game_rating_id');
     }
 
-    function gameName($name)
-    {
-        foreach(Game::where('name', 'like', '$name')->get() as $game) {
-            foreach($game->character as $c) {
-                echo '---' . $c->name . '\n';
-            }
-        }
-    }
-
-    function rating($name) {
-        foreach(Game::where('name','like',$name)->get() as $game) {
-            echo '----' .$game->name . ' : ' . $game->id . "\n";
-            foreach($this->original_game_ratings as $rating) {
-                echo '##### ' . $rating->name . ' ('. $rating->rating_board->name . '\n';
-            }
-        }
-    }
 }
