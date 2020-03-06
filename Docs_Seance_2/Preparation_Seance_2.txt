@@ -1,14 +1,25 @@
-1) Photo(id, file, date, taille_octet, #idannonce)
+﻿1) Photo(id, file, date, taille_octet, #idannonce)
 Annonce(id, titre, date, texte)
 Categorie(id, nom, descr)
 aPourCategorie(#idannonce, #idcateg)
 
-2) 
+2) class Annonce extends Illuminate\Database\Eloquent\Model{
+	public function photo(){
+		return $this→hasMany(‘\Photo’,’photo_id’) ;
+	}
+}
+
+class Photo extends Illuminate\Database\Eloquent\Model{
+	public function annonce(){
+		return $this→belongsTo(‘\Annonce’,’annonce_id’) ;
+	}
+}
+
 
 3)
 1. $a = Annonce::where('id','=',22)->first(); $a->hasMany('Photo','idannonce')->get();
-2. $p = Photo::where('idannonce','=',22)->where('taille_octet','>',100000)->get();
-3. 
+2. $p = Photo::where('idannonce','=',22)→where('taille_octet','>',100000)→get();
+3.
 4. $photo = Photo::select('idannonce')->where('idannonce','!=',0)->where('taille_octet,'>',100000)->get(); $ann = Annonce::where('id','=',$photo);
 
 4) $add = Annonce::where('idannonce','=',22)->first();
