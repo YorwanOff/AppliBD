@@ -1,0 +1,24 @@
+1)
+<?php
+
+$start = microtime(true);
+
+//Sequence d'instruction
+
+$end = microtime(true);
+
+$tmp = $end - $start;
+
+echo "Time : ".$tmp;
+
+?>
+
+2)Un index est une structure de données qui permet de "trier" une liste non ordonnée.
+  Chaque valeur de l'index correspond à une valeur de la colonne.
+  Il permet notamment d'améliorer grandement les performances d'une recherche dans une table contenant beacoup de données.
+
+3)
+
+4)Lorsque l'on veut récupérer les informations d'une table (par exemple l'auteur de chaque livre d'une liste de livre) on doit 
+  effectuer n+1 requêtes,-où n est le nombre de livres dans notre exemple- car il faut une première requête pour récupérer tous
+  les livres, et ensuite une requête pour chaque livre, donc n+1 requêtes en tout.
