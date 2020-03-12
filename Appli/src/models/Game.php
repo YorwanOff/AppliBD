@@ -2,20 +2,21 @@
 
 namespace applibd\models;
 
-use Illuminate\Database\Query\Builder;
-
-/**
- * Class Game
- * @mixin Builder
- */
-
-class Game  extends \Illuminate\Database\Eloquent\Model
+class Game extends BaseModel
 {
     protected $table = 'game';
     protected $primaryKey = 'id';
 
     function character(){
-        return $this->belongsToMany('Character', 'game2character', 'game_id', 'character_id')->get();
+        return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id')->get();
+    }
+
+    function developers(){
+        return $this->belongsToMany('applibd\models\Company', 'game_publishers', 'game_id', 'comp_id')->get();
+    }
+
+    function original_game_ratings() {
+        return $this->belongsToMany('applibd\models\GameRating','game2rating','game_id','rating_id')->get();
     }
     /*
        * Q1 : liste des jeux dont le nom contient mario
@@ -43,8 +44,14 @@ class Game  extends \Illuminate\Database\Eloquent\Model
         return $res;
     }
 
-    function original_game_ratings() {
-        return $this->belongsToMany('GameRating','game2rating','game_id','game_rating_id');
+    function characterByGame($id){
+        $game = Game::find($id);
+        $pers = $game->character()->all();
+        foreach ($pers as $key => $value){
+            echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
+        }
     }
+
+
 
 }

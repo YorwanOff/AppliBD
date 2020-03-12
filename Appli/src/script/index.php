@@ -14,12 +14,9 @@ $app = new Slim\App($c);
 
 \applibd\bd\Eloquent::start('../conf/conf.ini');
 
-//$app->get('/q1', q1())->setName('q1');
-//$app->get('/q2', q2())->setName('q2');
-//$app->get('/q3', q3())->setName('q3');
-//$app->get('/q4', q4())->setName('q4');
 
 $game = new Game();
+/**
 $game->q1('%mario%');
 $game->q4(442,21173);
 
@@ -34,20 +31,47 @@ $platform->q3(10000000);
  */
 
 
-$c = new \applibd\models\Character();
-$c->findById(12342);
-
+/*q1*/
+/**
+echo "<h2>QUESTION 1</h2>";
+$g = new \applibd\models\Game();
+$g->characterByGame(12342);
+*/
 /*q2*/
+/**
+echo "<h2>QUESTION 2</h2>";
 foreach(Game::where('name', 'like', 'Mario%')->get() as $game) {
-    foreach ($game->character as $c) {
-        echo '---' . $c->name . '\n';
+    foreach ($game->character() as $c) {
+        echo '--- ' . $c->name . "<br/>";
     }
 }
 
+echo "<h2>QUESTION 3</h2>";
+foreach(Company::where('name', 'like', '%Sony%')->get() as $comp) {
+    foreach ($comp->game() as $g) {
+        echo '--- ' . $g->name . "<br/>";
+    }
+}
+*/
 /*q4*/
-foreach(Game::where('name','like','Mario%')->get() as $game) {
-    echo '----' . $game->name . ' : ' . $game->id . "\n";
-    foreach ($game->original_game_ratings as $rating) {
-        echo '##### ' . $rating->name . ' (' . $rating->rating_board->name . '\n';
+/**
+echo "<h2>QUESTION 4</h2>";
+foreach(Game::where('name','like','%Mario%')->get() as $game) {
+    echo '----' . $game->name . ' : ' . "<br/>";
+    foreach ($game->original_game_ratings() as $rating) {
+        echo $rating->name . '<br/>';
+    }
+}*/
+/**
+echo "<h2>QUESTION 5</h2>";
+$game = Game::has('id','>',3)->where('name', 'like', '%Mario%')->get();
+foreach ($game as $g){
+    echo '----' . $game->name . "<br/>";
+}
+*/
+echo "<h2>QUESTION 6</h2>";
+foreach(Game::where('name', 'like', '%Mario%')->get() as $game){
+    foreach ($game->original_game_ratings()->whereIn('name', array('3+'))->all() as $r){
+        echo '--- ' . $game->name . "<br/>";
     }
 }

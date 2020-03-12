@@ -3,21 +3,17 @@
 
 namespace applibd\models;
 
-use Illuminate\Database\Query\Builder;
-
-class Character extends \Illuminate\Database\Eloquent\Model
+class Character extends BaseModel
 {
     protected $table = 'character';
     protected $primaryKey = 'id';
 
-    function game(){
-        return $this->belongsToMany('Game', 'game2character', 'character_id', 'game_id')->get();
+    function appears_in(){
+        return $this->belongsToMany('applibd\models\Game', 'game2character', 'character_id', 'game_id')->get();
     }
 
     function findById($id){
-        $pers = $this->game()->where('id','=', $id)->get();
-        foreach ($pers as $key => $value){
-            echo $value['name']." ".$value['deck'];
-        }
+        $pers = Character::where('id','=', $id)->first();
+        echo $pers['name']." ".$pers['deck'];
     }
 }

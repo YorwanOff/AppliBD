@@ -2,16 +2,14 @@
 
 namespace applibd\models;
 
-use Illuminate\Database\Query\Builder;
-
-/**
- * Class Company
- * @mixin Builder
- */
-class Company  extends \Illuminate\Database\Eloquent\Model
+class Company extends BaseModel
 {
     protected $table = 'company';
     protected $primaryKey = 'id';
+
+    function game(){
+        return $this->belongsToMany('applibd\models\Game', 'game_publishers', 'comp_id', 'game_id')->get();
+    }
 
     /*
      * Q2 : Liste des compagnies installées au Japon
