@@ -69,17 +69,17 @@ foreach ($game as $g){
     echo '----' . $game->name . "<br/>";
 }
 */
-
+/**
 echo "<h2>QUESTION 6</h2>";
 foreach(Game::where('name', 'like', '%Mario%')->get() as $game){
-    foreach ($game->original_game_ratings()->where('name', 'LIKE', '%'."3+".'%')->all() as $r){
+    foreach ($game->original_game_ratings()->where('name', '=', 'PEGI: 3+')->all() as $r){
         echo '--- ' . $game->name . "<br/>";
     }
-}
+}*/
 
 echo "<h2>QUESTION 7</h2>";
 foreach(Game::where('name', 'like', 'Mario%')->get() as $game){
-    foreach($game->developers()->where('name', 'like', '%'."Inc.".'%')->all() as $gamecomp){
+    foreach($game->developers()->where('name', 'like', '%'.'Inc.'.'%')->all() as $gamecomp){
         echo '--- ' . $game->name . "<br/>";
         foreach ($gamecomp->original_game_ratings()->where('name', '=', 'PEGI: 3+')->all() as $r){
             echo '--- ' . $game->name . "<br/>";
