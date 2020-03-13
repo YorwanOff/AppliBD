@@ -8,15 +8,15 @@ class Game extends BaseModel
     protected $primaryKey = 'id';
 
     function character(){
-        return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id')->get();
+        return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id');
     }
 
     function developers(){
-        return $this->belongsToMany('applibd\models\Company', 'game_publishers', 'game_id', 'comp_id')->get();
+        return $this->belongsToMany('applibd\models\Company', 'game_publishers', 'game_id', 'comp_id');
     }
 
     function original_game_ratings() {
-        return $this->belongsToMany('applibd\models\GameRating','game2rating','game_id','rating_id')->get();
+        return $this->belongsToMany('applibd\models\GameRating','game2rating','game_id','rating_id');
     }
     /*
        * Q1 : liste des jeux dont le nom contient mario

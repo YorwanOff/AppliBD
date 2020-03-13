@@ -3,6 +3,7 @@
 require '../../vendor/autoload.php';
 
 use applibd\models\Game;
+use applibd\models\GameRating;
 use applibd\models\Company;
 use applibd\models\Platform;
 
@@ -15,7 +16,7 @@ $app = new Slim\App($c);
 \applibd\bd\Eloquent::start('../conf/conf.ini');
 
 
-$game = new Game();
+/*$game = new Game();*/
 /**
 $game->q1('%mario%');
 $game->q4(442,21173);
@@ -69,20 +70,29 @@ foreach ($game as $g){
     echo '----' . $game->name . "<br/>";
 }
 */
-/**
+
 echo "<h2>QUESTION 6</h2>";
 foreach(Game::where('name', 'like', '%Mario%')->get() as $game){
-    foreach ($game->original_game_ratings()->where('name', '=', 'PEGI: 3+')->all() as $r){
-        echo '--- ' . $game->name . "<br/>";
+    foreach ($game->original_game_ratings()->where('name', 'LIKE', '%3+%')->get() as $r){
+        echo '--- ' . $game->name . " , " . $r->name . " ---" .  "<br/>";
     }
-}*/
+}
 
 echo "<h2>QUESTION 7</h2>";
 foreach(Game::where('name', 'like', 'Mario%')->get() as $game){
-    foreach($game->developers()->where('name', 'like', '%'.'Inc.'.'%')->all() as $gamecomp){
-        echo '--- ' . $game->name . "<br/>";
-        foreach ($gamecomp->original_game_ratings()->where('name', '=', 'PEGI: 3+')->all() as $r){
-            echo '--- ' . $game->name . "<br/>";
+    foreach($game->developers()->where('name', 'like', '%Inc.%')->get() as $comp){
+        foreach ($game->original_game_ratings()->where('name', 'like', '%3+%')->get() as $rating){
+            echo '--- ' . $game->name . " , " . $comp->name . " , rating : " . $rating->name . " ---" . "<br/>";
+        }
+    }
+}
+
+echo "<h2>QUESTION 8</h2>";
+foreach(Game::where('name', 'like', 'Mario%')->get() as $game){
+    foreach($game->developers()->where('name', 'like', '%Inc.%')->get() as $comp){
+        foreach ($game->original_game_ratings()->where('name', 'like', '%3+%')->get() as $rating){
+            foreach ($rating->rating_board()->where('name', 'like', '%CERO%')->get() as $board)
+            echo '--- ' . $game->name . " , " . $comp->name . " , rating : " . $rating->name . " , evalué par :" . $board->name. " ---" . "<br/>";
         }
     }
 }
