@@ -7,6 +7,7 @@ class Game extends BaseModel
     protected $table = 'game';
     protected $primaryKey = 'id';
 
+
     function character(){
         return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id')->get();
     }
@@ -51,5 +52,4 @@ class Game extends BaseModel
             echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
         }
     }
-
 }
