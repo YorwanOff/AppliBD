@@ -128,7 +128,8 @@ $end = microtime(true);
 $tmp = $end - $start;
 echo "Time : ".$tmp;
 
-echo "<h2>QUESTION 5</h2>";
+echo "<h2>QUESTION 5 (sans index)</h2>";
+$game->dropIndex('name');
 echo "<h3>Première valeur</h3>";
 $start = microtime(true);
 $game = Game::where('name', 'like', 'Mario%')->get();
@@ -150,3 +151,24 @@ $end = microtime(true);
 $tmp = $end - $start;
 echo "Time : ".$tmp;
 
+echo "<h2>QUESTION 5 (avec index)</h2>";
+echo "<h3>Première valeur</h3>";
+$start = microtime(true);
+$game = Game::where('name', 'like', 'Mario%')->get();
+$end = microtime(true);
+$tmp = $end - $start;
+echo "Time : ".$tmp;
+
+echo "<h3>Deuxième valeur</h3>";
+$start = microtime(true);
+$game = Game::where('name', 'like', 'Fire Emblem%')->get();
+$end = microtime(true);
+$tmp = $end - $start;
+echo "Time : ".$tmp;
+
+echo "<h3>Troisième valeur</h3>";
+$start = microtime(true);
+$game = Game::where('name', 'like', 'Need%')->get();
+$end = microtime(true);
+$tmp = $end - $start;
+echo "Time : ".$tmp;

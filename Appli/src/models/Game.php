@@ -52,6 +52,4 @@ class Game extends BaseModel
         }
     }
 
-
-
 }
