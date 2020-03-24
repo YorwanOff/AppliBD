@@ -1,0 +1,20 @@
+1) json_encode renverra un tableau json dans le cas d'un tableau sequentiel ou non-associatif
+   il renverra un objet json dans les autres cas(tableau associatif, non-sequentiel ou associatif avec clé supprimée)
+   on peut également forcer l'affichage en objet json avec l'option JSON_FORCE_OBJECT
+
+2) 
+1. Slim permet de récuperer les données transmises par l'url grâces à des routes définies dans le code
+   Exemple : 
+   $app->get('/game/:id', function ($id) {
+      //Traitement
+   });
+
+Où l'url sera '<chemin vers le fichier>/game/<id du jeu>'
+On peut donc ensuite faire un traitement en fonction de l'id passé dans l'url
+
+2. 
+
+3)
+1. Il est possible de recuperer le code de la reponse avec $response->getStatusCode()
+
+2. On peut ajouter un header avec $response->withHeader('Content-type', 'application/json');
