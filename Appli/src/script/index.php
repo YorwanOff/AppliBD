@@ -96,3 +96,6 @@ foreach(Game::where('name', 'like', 'Mario%')->get() as $game){
         }
     }
 }
+
+echo "<h2>Question 9</h2>";
+$genre = new Genre();
