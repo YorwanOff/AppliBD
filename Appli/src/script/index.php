@@ -14,7 +14,8 @@ $app = new Slim\App($c);
 
 \applibd\bd\Eloquent::start('../conf/conf.ini');
 
-
+DB::connection()->enableQueryLog();
+$old = ini_set('memory_limit', '8192M');
 $game = new Game();
 /**
 $game->q1('%mario%');
@@ -150,3 +151,8 @@ $game = Game::where('name', 'like', 'Need%')->get();
 $end = microtime(true);
 $tmp = $end - $start;
 echo "Time : ".$tmp;
+
+$games = Game::with('character')->where('name','like','%Mario%')->latest();
+foreach ($games as $game) {
+    echo $game->character->name;
+}
