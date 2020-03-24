@@ -7,6 +7,7 @@ class Genre extends BaseModel
 {
     protected $table = 'genre';
     protected $primaryKey = 'id';
+    public $timestamps = true;
 
     function game()
     {

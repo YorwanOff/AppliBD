@@ -95,4 +95,9 @@ foreach(models\Game::where('name', 'like', 'Mario%')->get() as $game){
 
 echo "<h2>Question 9</h2>";
 $genre = new models\Genre();
-
+$genre->name = 'nouveauGenre';
+$game->genre()->save($genre);
+$games = $game->where('id','=',[12,56,345])->get();
+foreach ($games as $g){
+    $g->genre()->attach($genre->id);
+}
