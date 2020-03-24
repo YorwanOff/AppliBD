@@ -15,6 +15,10 @@ class Game extends BaseModel
         return $this->belongsToMany('applibd\models\Company', 'game_publishers', 'game_id', 'comp_id');
     }
 
+    function genre(){
+        return $this->belongsToMany('applibd\models\Genre', 'game2genre', 'game_id', 'genre_id');
+    }
+
     function original_game_ratings() {
         return $this->belongsToMany('applibd\models\GameRating','game2rating','game_id','rating_id');
     }
