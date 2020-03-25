@@ -4,3 +4,4 @@ Appli/src/conf/
 *.json
 .idea
 Appli/.idea
+Appli/.htaccess
