@@ -8,7 +8,8 @@ class Game extends BaseModel
     protected $primaryKey = 'id';
 
     function character(){
-        return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id');
+        return $this->belongsToMany('applibd\models\Character', 'game2character', 'game_id', 'character_id')
+            ->withPivot(['character_id','game_id']);
     }
 
     function developers(){
@@ -50,7 +51,7 @@ class Game extends BaseModel
 
     function characterByGame($id){
         $game = Game::find($id);
-        $pers = $game->character()->all();
+        $pers = $game->character()->get();
         foreach ($pers as $key => $value){
             echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
         }
