@@ -4,14 +4,24 @@
 namespace applibd\control;
 
 use applibd\models;
-use applibd\view\GameView;
 
 class Controller
 {
     public function __construct(){}
 
     public function findGame($id){
+        $app = \Slim\Slim::getInstance();
+
         $game = new models\Game();
-        return json_encode($game->findById($id));
+        $g = $game->findById($id);
+        echo json_encode($g->toArray());
+    }
+
+    public function getGames($id){
+        $app = \Slim\Slim::getInstance();
+
+        $game = new models\Game();
+        $g = models\Game;
+        echo json_encode($g->toArray());
     }
 }

@@ -20,12 +20,12 @@ class Game extends BaseModel
     }
 
     function findById($id){
-        return Game::where('id','=', $id)->first();
+        return Game::find($id);
     }
 
     function characterByGame($id){
         $game = Game::find($id);
-        $pers = $game->character()->all();
+        $pers = $game->character()->get();
         foreach ($pers as $key => $value){
             echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
         }
