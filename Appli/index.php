@@ -9,14 +9,22 @@ $app = new Slim\App($c);
 
 \applibd\bd\Eloquent::start(__DIR__ . '/src/conf/conf.ini');
 
+$app->get('/', function(Request $request, Response $response, $args) {
+    $response->getBody()->write("Test");
+    return $response;
+});
+
 $app->get('/game/:id', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
-    $c->findGame($args['id']);
+    $res = $c->findGame($args['id']);
+    $response->getBody()->write($res);
+    $response->withHeader('Content-Type','application/json');
     return $response;
 });
 
 $app->get('/games', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
-    $c->getGames();
+    $res = $c->getGames();
+    $response->getBody()->write($res);
     return $response;
 });
