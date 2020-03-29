@@ -38,10 +38,11 @@ class Game extends BaseModel
 
     function gamesPage($page){
         $app = $this->getApp();
-
-        $skip = 200*$page-200;
-        $prev = (($page-1 < 0)?1:$page-1);
-        $next = (($page+1 > intdiv(Game::count(),$skip)+1 ? intdiv(Game::count(),$skip) : $page+1));
+        $numPage = ($page > 0 ? $page : 1);
+        $skip = 200*($numPage-1);
+        $max = Game::count();
+        $prev = (($numPage-1 < 1)?1:$numPage-1);
+        $next = (($numPage+1 > intdiv($max,200)+1 ? intdiv($max,200) : $numPage+1));
         $games = Game::select('id','name','alias','deck')
             ->take(200)->skip($skip)->get();
         $game_array = [];
@@ -50,11 +51,16 @@ class Game extends BaseModel
                 'game' => $game,
                 'links' => [
                     'prev' => $app->router->pathFor('games').'?pages='.$prev,
-                    'next' => $app->router->pathFor('games').'?pages='.$next
+                    'next' => $app->router->pathFor('games').'?pages='.$next,
+                    'self' => $app->router->pathFor('gamesId',['id' => $game['id']])
                 ]
             ]);
         }
         return $game_array;
+    }
+
+    function getComments($game_id){
+
     }
 
     function characterByGame($id){

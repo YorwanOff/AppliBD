@@ -14,14 +14,14 @@ $app->get('/', function(Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/game/{id}', function(Request $request, Response $response, $args) use ($app) {
+$app->get('/games/{id}', function(Request $request, Response $response, $args) use ($app) {
     $c = new \applibd\control\Controller($app->getContainer());
 
     $res = $c->findGame($args['id']);
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
-})->setName('game');
+})->setName('gamesId');
 
 $app->get('/games', function(Request $request, Response $response, $args) use ($app) {
     $c = new \applibd\control\Controller($app->getContainer());
@@ -34,6 +34,16 @@ $app->get('/games', function(Request $request, Response $response, $args) use ($
     $response->withHeader('Content-Type','application/json');
     return $response;
 })->setName('games');
+
+$app->get('/games/{id]/comments', function(Request $request, Response $response, $args) use ($app) {
+    $c = new \applibd\control\Controller($app->getContainer());
+
+    $res = $c->getComments($args['id']);
+    $response->getBody()->write($res);
+    $response->withHeader('Content-Type','application/json');
+    return $response;
+})->setName('comments');
+
 try {
     $app->run();
 } catch (Throwable $e) {
