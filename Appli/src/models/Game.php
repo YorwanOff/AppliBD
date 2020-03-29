@@ -20,7 +20,7 @@ class Game extends BaseModel
     }
 
     function findById($id){
-        return Game::select('id','alias','deck','description','original_release_date')
+        return Game::select('id','alias','deck','original_release_date')
             ->where('id','=',$id)->get();
     }
 

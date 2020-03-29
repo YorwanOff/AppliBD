@@ -25,7 +25,11 @@ $app->get('/game/{id}', function(Request $request, Response $response, $args) {
 
 $app->get('/games', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
-    $res = $c->getGames();
+    if($request->getQueryParam('page') != null) {
+        $res = $c->gamesByPage($request->getQueryParam('page'));
+    } else {
+        $res = $c->getGames();
+    }
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;

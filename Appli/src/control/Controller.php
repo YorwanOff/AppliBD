@@ -10,17 +10,20 @@ class Controller
     public function __construct(){}
 
     public function findGame($id){
-        $g = models\Game::findById($id);
-        return json_encode($g->toArray());
+        $g = new models\Game();
+        $data = $g->findById($id);
+        return json_encode($data,JSON_FORCE_OBJECT);
     }
 
     public function getGames(){
-        $g = models\Game::gamesList();
-        return json_encode($g,JSON_FORCE_OBJECT);
+        $g = new models\Game();
+        $data = $g->gamesList();
+        return json_encode($data,JSON_FORCE_OBJECT);
     }
 
     public function gamesByPage($page){
-        $g = models\Game::gamesPage($page);
-        return json_encode($g->toArray());
+        $g = new models\Game();
+        $data = $g->gamesPage($page);
+        return json_encode($data->toArray());
     }
 }
