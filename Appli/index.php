@@ -1,6 +1,6 @@
 <?php
 
-require '../../vendor/autoload.php';
+require __DIR__ . '\vendor\autoload.php';
 
 use applibd\models\Game;
 use applibd\models\Company;
@@ -12,7 +12,7 @@ $c = new Slim\Container(['settings' => ['displayErrorDetails' => true]]);
 $app = new Slim\App($c);
 
 
-\applibd\bd\Eloquent::start('../conf/conf.ini');
+\applibd\bd\Eloquent::start(__DIR__ . '/src/conf/conf.ini');
 
 DB::connection()->enableQueryLog();
 
@@ -155,5 +155,13 @@ echo "Time : ".$tmp;
 */
 
 
-Faker\Factory::create();
-
+$faker = Faker\Factory::create();
+$u = new \applibd\models\Users();
+$c = new applibd\models\Comment();
+for($i=0; $i<25000; $i++){
+    $email = $faker->email;
+    $u->add($email,$faker->lastName,$faker->firstName,$faker->address,$faker->dateTime());
+    for($j=0; $j<rand(0,15);$j++){
+        $c->add(Faker\Provider\Lorem::text(20),Faker\Provider\Lorem::text(),$faker->dateTime(),$email,rand(1,applibd\models\Game::count()));
+    }
+}
