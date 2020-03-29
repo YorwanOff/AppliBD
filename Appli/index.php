@@ -14,17 +14,17 @@ $app->get('/', function(Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/game/{id}', function(Request $request, Response $response, $args) {
-    $c = new \applibd\control\Controller();
+$app->get('/game/{id}', function(Request $request, Response $response, $args) use ($app) {
+    $c = new \applibd\control\Controller($app->getContainer());
 
     $res = $c->findGame($args['id']);
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
-});
+})->setName('game');
 
-$app->get('/games', function(Request $request, Response $response, $args) {
-    $c = new \applibd\control\Controller();
+$app->get('/games', function(Request $request, Response $response, $args) use ($app) {
+    $c = new \applibd\control\Controller($app->getContainer());
     if($request->getQueryParam('page') != null) {
         $res = $c->gamesByPage($request->getQueryParam('page'));
     } else {
@@ -33,7 +33,7 @@ $app->get('/games', function(Request $request, Response $response, $args) {
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
-});
+})->setName('games');
 try {
     $app->run();
 } catch (Throwable $e) {
