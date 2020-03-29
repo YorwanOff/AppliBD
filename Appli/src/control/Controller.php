@@ -16,7 +16,7 @@ class Controller
 
     public function getGames(){
         $g = models\Game::gamesList();
-        return json_encode($g->toArray());
+        return json_encode($g,JSON_FORCE_OBJECT);
     }
 
     public function gamesByPage($page){

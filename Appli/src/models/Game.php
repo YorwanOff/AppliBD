@@ -42,7 +42,4 @@ class Game extends BaseModel
             echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
         }
     }
-
-
-
 }

@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+require_once __DIR__ . '\vendor\autoload.php';
 
 use \Psr\Http\Message\{ServerRequestInterface as Request, ResponseInterface as Response};
 
@@ -23,13 +26,15 @@ $app->get('/game/{id}', function(Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/games:[page]', function(Request $request, Response $response, $args) {
+$app->get('/games', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
-    if($args['page'] != null){
-        $res = $c->gamesByPage($args['page']);
-    } else {
-        $res = $c->getGames();
-    }
+    $res = $c->getGames();
     $response->getBody()->write($res);
+    $response->withHeader('Content-Type','application/json');
     return $response;
 });
+try {
+    $app->run();
+} catch (Throwable $e) {
+    echo $e->getTraceAsString();
+}
