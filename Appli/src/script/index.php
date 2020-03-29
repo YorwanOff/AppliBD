@@ -93,6 +93,7 @@ foreach(Game::where('name', 'like', 'Mario%')->get() as $game){
         }
     }
 }*/
+/**
 echo "<h2>QUESTION 1</h2>";
 $start = microtime(true);
 //$games = Game::get();
@@ -151,4 +152,8 @@ $end = microtime(true);
 $tmp = $end - $start;
 echo "Time : ".$tmp;
 
-$queries = DB::getQueryLog();
+*/
+
+
+Faker\Factory::create();
+
