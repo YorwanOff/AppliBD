@@ -29,6 +29,12 @@ class Game extends BaseModel
             ->take(200)->get();
     }
 
+    function gamesPage($page){
+        $skip = 200*$page-200;
+        return Game::select('id','name','alias','deck')
+            ->take(200)->skip($skip)->get();
+    }
+
     function characterByGame($id){
         $game = Game::find($id);
         $pers = $game->character()->get();

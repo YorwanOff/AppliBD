@@ -18,4 +18,9 @@ class Controller
         $g = models\Game::gamesList();
         return json_encode($g->toArray());
     }
+
+    public function gamesByPage($page){
+        $g = models\Game::gamesPage($page);
+        return json_encode($g->toArray());
+    }
 }

@@ -14,17 +14,22 @@ $app->get('/', function(Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/game/:id', function(Request $request, Response $response, $args) {
+$app->get('/game/{id}', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
+
     $res = $c->findGame($args['id']);
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
 });
 
-$app->get('/games', function(Request $request, Response $response, $args) {
+$app->get('/games:[page]', function(Request $request, Response $response, $args) {
     $c = new \applibd\control\Controller();
-    $res = $c->getGames();
+    if($args['page'] != null){
+        $res = $c->gamesByPage($args['page']);
+    } else {
+        $res = $c->getGames();
+    }
     $response->getBody()->write($res);
     return $response;
 });
