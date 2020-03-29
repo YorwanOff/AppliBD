@@ -7,6 +7,11 @@ class Platform extends BaseModel
     protected $table = 'platform';
     protected $primaryKey = 'id';
 
+    function __construct($app)
+    {
+        parent::__construct($app);
+    }
+
     /*
     * Q3 : Liste des plateformes dont la base installée est >= 10 000 000
     */

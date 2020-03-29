@@ -9,7 +9,7 @@ use Illuminate\Database\Query\Builder;
  * @mixin Builder
  */
 abstract class BaseModel extends \Illuminate\Database\Eloquent\Model{
-    function __construct($app)
+    function __construct($app = null)
     {
         $this->app = $app;
     }

@@ -7,6 +7,11 @@ class Company extends BaseModel
     protected $table = 'company';
     protected $primaryKey = 'id';
 
+    function __construct($app)
+    {
+        parent::__construct($app);
+    }
+
     function game(){
         return $this->belongsToMany('applibd\models\Game', 'game_publishers', 'comp_id', 'game_id')->get();
     }

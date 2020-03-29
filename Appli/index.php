@@ -9,12 +9,7 @@ $app = new Slim\App($c);
 
 \applibd\bd\Eloquent::start(__DIR__ . '/src/conf/conf.ini');
 
-$app->get('/', function(Request $request, Response $response, $args) {
-    $response->getBody()->write("Test");
-    return $response;
-});
-
-$app->get('/games/{id}', function(Request $request, Response $response, $args) use ($app) {
+$app->get('/api/games/{id}', function(Request $request, Response $response, $args) use ($app) {
     $c = new \applibd\control\Controller($app->getContainer());
 
     $res = $c->findGame($args['id']);
@@ -23,26 +18,31 @@ $app->get('/games/{id}', function(Request $request, Response $response, $args) u
     return $response;
 })->setName('gamesId');
 
-$app->get('/games', function(Request $request, Response $response, $args) use ($app) {
+$app->get('/api/games', function(Request $request, Response $response, $args) use ($app) {
     $c = new \applibd\control\Controller($app->getContainer());
-    if($request->getQueryParam('page') != null) {
-        $res = $c->gamesByPage($request->getQueryParam('page'));
-    } else {
-        $res = $c->getGames();
-    }
+    $res = $c->gamesByPage($request->getQueryParam('page'));
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
 })->setName('games');
 
-$app->get('/games/{id]/comments', function(Request $request, Response $response, $args) use ($app) {
+$app->get('/api/games/{id}/characters', function(Request $request, Response $response, $args) use ($app) {
     $c = new \applibd\control\Controller($app->getContainer());
 
-    $res = $c->getComments($args['id']);
+    $res = $c->getCharacters($args['id']);
     $response->getBody()->write($res);
     $response->withHeader('Content-Type','application/json');
     return $response;
-})->setName('comments');
+})->setName('characters');
+
+$app->get('/api/characters/{id}', function(Request $request, Response $response, $args) use ($app) {
+    $c = new \applibd\control\Controller($app->getContainer());
+
+    $res = $c->getCharacter($args['id']);
+    $response->getBody()->write($res);
+    $response->withHeader('Content-Type','application/json');
+    return $response;
+})->setName('character');
 
 try {
     $app->run();

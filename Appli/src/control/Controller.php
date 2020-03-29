@@ -4,22 +4,17 @@
 namespace applibd\control;
 
 use applibd\models;
-use Illuminate\Support\Fluent;
 
 class Controller
 {
     private $app;
-    public function __construct($a){$this->app = $a;}
+    public function __construct($a){
+        $this->app = $a;
+    }
 
     public function findGame($id){
         $g = new models\Game($this->app);
         $data = $g->findById($id);
-        return json_encode($data);
-    }
-
-    public function getGames(){
-        $g = new models\Game($this->app);
-        $data = $g->gamesList();
         return json_encode($data);
     }
 
@@ -29,9 +24,15 @@ class Controller
         return json_encode($data);
     }
 
-    public function getComments($id){
+    public function getCharacters($id){
         $g = new models\Game($this->app);
-        $data = getComments($id);
+        $data = $g->characterByGame($id);
+        return json_encode($data);
+    }
+
+    public function getCharacter($id){
+        $g = new models\Character();
+        $data = $g->findById($id);
         return json_encode($data);
     }
 }

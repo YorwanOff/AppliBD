@@ -8,6 +8,11 @@ class GameRating extends BaseModel
     protected $table = 'game_rating';
     protected $primaryKey = 'id';
 
+    function __construct($app)
+    {
+        parent::__construct($app);
+    }
+
     function game(){
         return $this->belongsToMany('applibd\models\Game', 'game2rating', 'rating_id', 'game_id');
     }

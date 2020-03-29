@@ -13,7 +13,6 @@ class Character extends BaseModel
     }
 
     function findById($id){
-        $pers = Character::where('id','=', $id)->first();
-        echo $pers['name']." ".$pers['deck'];
+        return Character::where('id','=', $id)->first();
     }
 }

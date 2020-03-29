@@ -27,13 +27,18 @@ class Game extends BaseModel
     }
 
     function findById($id){
-        return Game::select('id','alias','deck','original_release_date')
-            ->where('id','=',$id)->get();
-    }
-
-    function gamesList(){
-        return Game::select('id','name','alias','deck')
-            ->take(200)->get();
+        $game = Game::select('id','name','alias','deck','description','original_release_date')
+            ->where('id','=',$id)->first();
+        return [
+            'game' => [
+                'id' => $game['id'],
+                'name' => $game['name'],
+                'alias' => $game['alias'],
+                'deck' => $game['deck'],
+                'description' => strip_tags($game['description']),
+                'original_release_date' => $game['original_release_date'],
+            ]
+        ];
     }
 
     function gamesPage($page){
@@ -41,33 +46,46 @@ class Game extends BaseModel
         $numPage = ($page > 0 ? $page : 1);
         $skip = 200*($numPage-1);
         $max = Game::count();
-        $prev = (($numPage-1 < 1)?1:$numPage-1);
-        $next = (($numPage+1 > intdiv($max,200)+1 ? intdiv($max,200) : $numPage+1));
-        $games = Game::select('id','name','alias','deck')
+        $prev = (($numPage-1 > 0) ? $numPage-1 : 1);
+        $next = (($numPage+1 > intdiv($max,200)+1 ? intdiv($max,200)+1 : $numPage+1));
+        $games = Game::select('id','name','alias','deck','description','original_release_date')
             ->take(200)->skip($skip)->get();
         $game_array = [];
         foreach ($games as $game){
             array_push($game_array,[
-                'game' => $game,
+                'game' => [
+                    'id' => $game['id'],
+                    'name' => $game['name'],
+                    'alias' => $game['alias'],
+                    'deck' => $game['deck'],
+                    'description' => strip_tags($game['description']),
+                    'original_release_date' => $game['original_release_date'],
+                ],
                 'links' => [
-                    'prev' => $app->router->pathFor('games').'?pages='.$prev,
-                    'next' => $app->router->pathFor('games').'?pages='.$next,
-                    'self' => $app->router->pathFor('gamesId',['id' => $game['id']])
+                    'prev' => ['href' => $app->router->pathFor('games').'?pages='.$prev],
+                    'next' => ['href' => $app->router->pathFor('games').'?pages='.$next],
+                    'self' => ['href' => $app->router->pathFor('gamesId',['id' => $game['id']])]
                 ]
             ]);
         }
         return $game_array;
     }
 
-    function getComments($game_id){
-
-    }
-
     function characterByGame($id){
+        $app = $this->getApp();
         $game = Game::find($id);
-        $pers = $game->character()->get();
-        foreach ($pers as $key => $value){
-            echo '<p>'.$value['name']. " : ".$value['deck'].'</p>';
+        $data = $game->character()->get();
+        $char_array = [];
+        foreach ($data as $char){
+            array_push($char_array,[
+                'character' => [
+                    'name' => $char['name'],
+                ],
+                'links' => [
+                    'self' => ['href' => $app->router->pathFor('character',['id' => $char['id']])]
+                ]
+            ]);
         }
+        return $char_array;
     }
 }
